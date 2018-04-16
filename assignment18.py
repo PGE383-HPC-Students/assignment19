@@ -3,6 +3,8 @@ import numpy as np
 
 from PyTrilinos import Epetra
 from PyTrilinos import AztecOO
+from PyTrilinos import Teuchos
+from PyTrilinos import Isorropia
 
 class OneDimLaplace(object):
 
@@ -35,14 +37,26 @@ class OneDimLaplace(object):
 
         self.A.FillComplete()
 
+    def load_balance(self):
+
+        parameter_list = Teuchos.ParameterList() 
+        parameter_sublist = parameter_list.sublist("ZOLTAN")
+        parameter_sublist.set("DEBUG_LEVEL", "0")
+        partitioner = Isorropia.Epetra.Partitioner(self.A, parameter_list) 
+        redistributor = Isorropia.Epetra.Redistributor(partitioner) 
+        self.A = redistributor.redistribute(self.A)
+        self.x = redistributor.redistribute(self.x)
+        self.b = redistributor.redistribute(self.b)
+
     def solve(self):
 
         linear_problem = Epetra.LinearProblem(self.A, self.x, self.b) 
         solver = AztecOO.AztecOO(linear_problem) 
-        solver.Iterate(10000,1.e-5)  
+        solver.Iterate(10000, 1.e-5)  
 
     def get_solution(self):
         return self.x
+
 
 
 
@@ -53,6 +67,7 @@ if __name__ == "__main__":
     comm = Epetra.PyComm()
 
     solver = OneDimLaplace(comm)
+    solver.load_balance()
     solver.solve()
 
     print(solver.get_solution())
