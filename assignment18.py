@@ -23,14 +23,16 @@ class OneDimLaplace(object):
 
         self.A = Epetra.CrsMatrix(Epetra.Copy, unbalanced_map, 3) 
         for gid in unbalanced_map.MyGlobalElements():
-            if gid in (0,number_of_elements-1): 
+            if gid in (0): 
+                self.A.InsertGlobalValues(gid,[1],[gid])
+            elif gid in (self.size -1 ): 
                 self.A.InsertGlobalValues(gid,[1],[gid])
             else: 
                 self.A.InsertGlobalValues(gid,[-1,2,-1],[gid-1,gid,gid+1])
 
         self.A.FillComplete()
         self.x = Epetra.Vector(unbalanced_map) 
-        self.b = Epetra.Vector(unbalanced_map) #Boundary conditions
+        self.b = Epetra.Vector(unbalanced_map) 
         if self.rank == 0:
             self.b[0] = -1
         if self.rank == self.size-1:
