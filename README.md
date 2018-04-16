@@ -6,7 +6,7 @@ In this assignment the objective is to solve the one-dimensional Laplace equatio
 
 ![equation](http://latex.codecogs.com/gif.latex?-%5Cfrac%7B%5Cpartial%5E2%20u%7D%7B%5Cpartial%20x%5E2%7D%20%3D%200)
 
-with boundary conditions ![equation](http://latex.codecogs.com/gif.latex?u%280%29%20%3D%20-1) and ![equation](http://latex.codecogs.com/gif.latex?u%28L%29%20%3D%201).  If we use a finite difference discretization of this equation with ![equation](http://latex.codecogs.com/gif.latex?%5CDelta%20x%20%3D%201) we get a discrete equation for any cell-centered node $i$ 
+with boundary conditions ![equation](http://latex.codecogs.com/gif.latex?u%280%29%20%3D%20-1) and ![equation](http://latex.codecogs.com/gif.latex?u%28L%29%20%3D%201).  If we use a finite difference discretization of this equation with ![equation](http://latex.codecogs.com/gif.latex?%5CDelta%20x%20%3D%201) we get a discrete equation for any cell-centered node [!equation](http://latex.codecogs.com/gif.latex?i) 
 
 ![equation](http://latex.codecogs.com/gif.latex?-u%28x_i%20-%201%29%20&plus;%202%20u%28x_i%29%20-%20u%28x_i%20&plus;%201%29%20%3D%200)
 
