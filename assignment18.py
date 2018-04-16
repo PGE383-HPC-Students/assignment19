@@ -12,31 +12,28 @@ class OneDimLaplace(object):
         self.rank = comm.MyPID()
         self.size = comm.NumProc()
 
-        # if self.rank == 0:
-            # number_of_entries_per_row = np.ones(number_of_elements,  dtype=np.int32) * 3
-            # number_of_entries_per_row[0] = 2
-            # number_of_entries_per_row[-1] = 2
-        # else:
-            # number_of_entries_per_row = np.array([0],  dtype=np.int32)
+        if self.rank == 0:
+            number_of_rows = number_of_elements
+        else:
+            number_of_rows = 0
         
-        unbalanced_map = Epetra.Map(number_of_elements, 0, self.comm)
+        unbalanced_map = Epetra.Map(-1, number_of_rows, 0, self.comm)
 
         self.A = Epetra.CrsMatrix(Epetra.Copy, unbalanced_map, 3) 
+        self.x = Epetra.Vector(unbalanced_map) 
+        self.b = Epetra.Vector(unbalanced_map) 
+
         for gid in unbalanced_map.MyGlobalElements():
-            if gid in (0): 
+            if gid == 0: 
                 self.A.InsertGlobalValues(gid,[1],[gid])
-            elif gid in (self.size -1 ): 
+                self.b[0] = -1
+            elif gid == (number_of_elements - 1): 
                 self.A.InsertGlobalValues(gid,[1],[gid])
+                self.b[-1] = 1
             else: 
                 self.A.InsertGlobalValues(gid,[-1,2,-1],[gid-1,gid,gid+1])
 
         self.A.FillComplete()
-        self.x = Epetra.Vector(unbalanced_map) 
-        self.b = Epetra.Vector(unbalanced_map) 
-        if self.rank == 0:
-            self.b[0] = -1
-        if self.rank == self.size-1:
-            self.b[-1] = 1
 
     def solve(self):
 
