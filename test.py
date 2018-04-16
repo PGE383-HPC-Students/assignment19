@@ -33,6 +33,8 @@ class TestOneDimLaplace(unittest.TestCase):
 
         self.solver.load_balance()
         self.solver.solve()
+        if self.solver.size == 1:
+            np.testing.assert_allclose(self.solver.x, np.array([-1., -0.77777778, -0.55555556, -0.33333333, -0.11111111, 0.11111111,  0.33333333,  0.55555556, 0.77777778, 1.]), atol=0.001)
         if self.solver.size == 2:
             if self.solver.rank == 0:
                 np.testing.assert_allclose(self.solver.x, np.array([-1., -0.77777778, -0.55555556,  0.11111111,  0.33333333]), atol=0.001)

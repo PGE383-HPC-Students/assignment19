@@ -62,6 +62,7 @@ class OneDimLaplace(object):
 
 if __name__ == "__main__":
 
+    print("I am here")
     from PyTrilinos import Epetra
 
     comm = Epetra.PyComm()
