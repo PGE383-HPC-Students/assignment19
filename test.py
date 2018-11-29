@@ -4,7 +4,7 @@ import unittest
 import numpy as np
 from PyTrilinos import Epetra
 
-from assignment18 import OneDimLaplace
+from assignment19 import OneDimLaplace
 
 class TestOneDimLaplace(unittest.TestCase):
 

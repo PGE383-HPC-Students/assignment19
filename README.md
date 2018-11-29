@@ -1,16 +1,16 @@
-# Homework Assignment 18
+# Homework Assignment 19
 
-[![Build Status](https://travis-ci.com/PGE383-HPC/assignment18.svg?token=SnMGq692xXXqxzyE6QSj&branch=master)](https://travis-ci.com/PGE383-HPC/assignment18)
+[![Build Status](https://travis-ci.com/PGE383-HPC/assignment19.svg?token=SnMGq692xXXqxzyE6QSj&branch=master)](https://travis-ci.com/PGE383-HPC/assignment19)
 
 In this assignment the objective is to solve the one-dimensional Laplace equation using AztecOO, i.e.
 
 ![equation](http://latex.codecogs.com/gif.latex?-%5Cfrac%7B%5Cpartial%5E2%20u%7D%7B%5Cpartial%20x%5E2%7D%20%3D%200)
 
-with boundary conditions ![equation](http://latex.codecogs.com/gif.latex?u%280%29%20%3D%20-1) and ![equation](http://latex.codecogs.com/gif.latex?u%28L%29%20%3D%201).  If we use a finite difference discretization of this equation with ![equation](http://latex.codecogs.com/gif.latex?%5CDelta%20x%20%3D%201) we get a discrete equation for any cell-centered node ![equation](http://latex.codecogs.com/gif.latex?i) 
+with boundary conditions ![equation](http://latex.codecogs.com/gif.latex?u%280%29%20%3D%20-1) and ![equation](http://latex.codecogs.com/gif.latex?u%28L%29%20%3D%201).  If we use a finite difference discretization of this equation with ![equation](http://latex.codecogs.com/gif.latex?%5CDelta%20x%20%3D%201) we get a discrete equation for any node ![equation](http://latex.codecogs.com/gif.latex?i) 
 
 ![equation](http://latex.codecogs.com/gif.latex?-u%28x_i%20-%201%29%20&plus;%202%20u%28x_i%29%20-%20u%28x_i%20&plus;%201%29%20%3D%200)
 
-I've used this discretization and the boundary conditions (I've cheated a little on the application of the boundary conditions allowing them to be applied directly to the cell centered node instead of exactly on the boundary) to create a linear system of equations ![equation](http://latex.codecogs.com/gif.latex?%5Cmathbf%7BA%7D%20%5Cmathbf%7Bx%20%3D%20b%7D) during the construction of the `OneDimLaplace` object.  
+I've used this discretization and the boundary conditions to create a linear system of equations ![equation](http://latex.codecogs.com/gif.latex?%5Cmathbf%7BA%7D%20%5Cmathbf%7Bx%20%3D%20b%7D) during the construction of the `OneDimLaplace` object.  
 
 However, the linear system is completely on one processor.  Your assignment is the use `Isorropia` from Trilinos to load-balance the problem.  Use the default settings and call the load balancer on the matrix ![equation](http://latex.codecogs.com/gif.latex?%5Cmathbf%7BA%7D), then use the results to load balance the rest of the required data structures before calling `AztecOO` to solve the linear system of equations.
 
