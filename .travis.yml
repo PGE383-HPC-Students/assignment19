@@ -10,4 +10,3 @@ install:
   - "curl -H \"Authorization: token ${GH_TOKEN}\" -H 'Accept: application/vnd.github.v3.raw' -O --location \"https://api.github.com/repos/PGE383-HPC/${ASSIGNMENT}/contents/test.py\""
 script:
   - docker run --rm -v `pwd`:/var/pytri -it johntfoster/pytrilinos:latest mpiexec -np 1 python test.py
-  - docker run --rm -v `pwd`:/var/pytri -it johntfoster/pytrilinos:latest mpiexec -np 2 python test.py
