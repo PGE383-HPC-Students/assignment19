@@ -1,7 +1,5 @@
 # Homework Assignment 19
 
-[![Build Status](https://travis-ci.com/PGE383-HPC/assignment19.svg?token=SnMGq692xXXqxzyE6QSj&branch=master)](https://travis-ci.com/PGE383-HPC/assignment19)
-
 In this assignment the objective is to solve the one-dimensional Laplace equation using AztecOO, i.e.
 
 ![equation](http://latex.codecogs.com/gif.latex?-%5Cfrac%7B%5Cpartial%5E2%20u%7D%7B%5Cpartial%20x%5E2%7D%20%3D%200)

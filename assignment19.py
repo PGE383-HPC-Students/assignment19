@@ -39,20 +39,11 @@ class OneDimLaplace(object):
 
     def load_balance(self):
 
-        parameter_list = Teuchos.ParameterList() 
-        parameter_sublist = parameter_list.sublist("ZOLTAN")
-        parameter_sublist.set("DEBUG_LEVEL", "0")
-        partitioner = Isorropia.Epetra.Partitioner(self.A, parameter_list) 
-        redistributor = Isorropia.Epetra.Redistributor(partitioner) 
-        self.A = redistributor.redistribute(self.A)
-        self.x = redistributor.redistribute(self.x)
-        self.b = redistributor.redistribute(self.b)
+        return
 
     def solve(self):
 
-        linear_problem = Epetra.LinearProblem(self.A, self.x, self.b) 
-        solver = AztecOO.AztecOO(linear_problem) 
-        solver.Iterate(10000, 1.e-5)  
+        return 
 
     def get_solution(self):
         return self.x
@@ -62,7 +53,6 @@ class OneDimLaplace(object):
 
 if __name__ == "__main__":
 
-    print("I am here")
     from PyTrilinos import Epetra
 
     comm = Epetra.PyComm()
