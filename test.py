@@ -61,12 +61,13 @@ class TestOneDimLaplace(unittest.TestCase):
                 np.testing.assert_allclose(self.solver.x, np.array([-1., -0.77777778, -0.55555556]), atol=0.001)
             if self.solver.rank == 2:
                 np.testing.assert_allclose(self.solver.x, np.array([0.55555556, 0.77777778, 1.]), atol=0.001)
-                
 
 
-            
+
+
 
 
 
 if __name__ == '__main__':
     unittest.main()
+    exit()
